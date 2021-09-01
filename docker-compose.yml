@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  sshd:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - sshd-host_keys:/etc/ssh/host_keys
+    ports:
+      - "${SSHD_PORT:-22222}:${LOCAL_SSHD_PORT:-22}"
+      - "${REDIRECTED_SSHD_PORT:-22223}:${REMOTE_SSHD_PORT:-9000}"
+
+volumes:
+  sshd-host_keys:
